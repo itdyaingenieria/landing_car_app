@@ -11,11 +11,11 @@ class LandingController extends Controller
     public function index()
     {
         $departments = Department::all();
-        $winner = Winner::with(['participant.department', 'participant.city'])->latest()->first();
+        $winner      = Winner::with(['participant.department', 'participant.city'])->latest()->first();
 
         return Inertia::render('Landing', [
-            'departments' => $departments,
-            'winner' => $winner ? $winner->participant : null,
+            'departments'   => $departments,
+            'winner'        => $winner ? $winner->participant : null,
         ]);
     }
 
