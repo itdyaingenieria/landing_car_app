@@ -157,7 +157,7 @@ function maskEmail(email) {
 
             <!-- Winner Display (if exists) -->
             <section v-if="winner" class="mb-16 bg-white p-8 rounded-lg shadow-md border-l-4 border-[#001E50]">
-                <h2 class="text-2xl font-bold text-[#001E50] mb-6">¡Felicitaciones a nuestro ganador!</h2>
+                <h2 class="text-2xl font-bold text-[#001E50] mb-6">¡Felicitaciones a nuestro ganador! 🎉</h2>
                 <div class="flex flex-col md:flex-row justify-between bg-gray-50 p-6 rounded-lg">
                     <div>
                         <p class="mb-2"><span class="font-semibold">Nombre:</span> {{ winner.first_name }} {{
@@ -226,7 +226,7 @@ function maskEmail(email) {
                                 </option>
                             </select>
                             <p v-if="errors.department_id" class="mt-1 text-sm text-red-600">{{ errors.department_id[0]
-                            }}</p>
+                                }}</p>
                         </div>
 
                         <div>

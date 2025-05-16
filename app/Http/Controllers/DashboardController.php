@@ -20,6 +20,8 @@ class DashboardController extends Controller
 
             // Calculate statistics
             $totalParticipants = $participants->count();
+
+            // Count participants registered today
             $todayParticipants = $participants->filter(function ($p) {
                 return Carbon::parse($p->created_at)->isToday();
             })->count();

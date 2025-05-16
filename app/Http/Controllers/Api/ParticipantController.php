@@ -113,6 +113,6 @@ class ParticipantController extends Controller
 
     public function export()
     {
-        return Excel::download(new ParticipantsExport, 'participantes.xlsx');
+        return Excel::download(new ParticipantsExport, 'participants.xlsx');
     }
 }
