@@ -118,7 +118,7 @@ function formatDate(dateString) {
 
                     <!-- Card Winner -->
                     <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Ganador</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Ganador .:.</h3>
 
                         <div v-if="winner" class="bg-green-50 p-4 rounded-lg border border-green-100 mb-4">
                             <div class="flex justify-between flex-wrap">
