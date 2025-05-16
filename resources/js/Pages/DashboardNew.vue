@@ -2,6 +2,7 @@
 
     <Head title="Panel de Administración" />
 
+
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -69,6 +70,22 @@
                     </div>
                 </div>
 
+                <!-- Global download indicator-->
+                <div v-if="isExporting"
+                    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white p-6 rounded-lg">
+                        <p class="text-lg font-bold">Descargando Reporte...</p>
+                        <svg class="animate-spin h-8 w-8 text-blue-500 mx-auto mt-4" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+
                 <!-- Participants list section -->
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6">
@@ -85,11 +102,15 @@
                                     </div>
                                 </div>
 
-                                <a :href="route('participants.export')"
-                                    class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center"
-                                    target="_blank">
-                                    <span>Exportar a Excel</span>
-                                </a>
+                                <button @click="exportParticipants"
+                                    class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center">
+                                    <span>Exportar Participantes</span>
+                                    <svg class="h-5 w-5 ms-2" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v8m4-4H8" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
 
@@ -250,4 +271,24 @@ function formatDate(dateString) {
         return dateString;
     }
 }
+
+const isExporting = ref(false);
+const exportParticipants = async () => {
+    isExporting.value = true;
+    try {
+        const response = await axios.get('/export-participants', {
+            responseType: 'blob'
+        });
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'dfyaParticipantes.xlsx');
+        document.body.appendChild(link);
+        link.click();
+    } catch (error) {
+        console.error('Error exporting participants:', error);
+    } finally {
+        isExporting.value = false;
+    }
+};
 </script>
