@@ -16,6 +16,19 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->timestamps();
         });
+
+        // Load data of CSV
+        $csvPath = database_path('seeders/data/departments.csv');
+        if (file_exists($csvPath)) {
+            $departments = array_map('str_getcsv', file($csvPath));
+            foreach ($departments as $row) {
+                \Illuminate\Support\Facades\DB::table('departments')->insert([
+                    'name' => $row[0],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
     }
 
     /**
