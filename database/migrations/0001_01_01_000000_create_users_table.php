@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 return new class extends Migration
 {
@@ -20,6 +22,14 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        // Create the initial user admin for academy test
+        User::create([
+            'name'      => 'Usuario Inicial',
+            'email'     => 'admin@gmail.com',
+            'password'  => Hash::make('pass2025'),
+            'email_verified_at' => now()
+        ]);
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
