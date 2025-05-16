@@ -182,24 +182,25 @@ function maskEmail(email) {
                 <form @submit.prevent="submitForm" class="p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-                            <input v-model="form.first_name" type="text"
+                            <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
+                            <input id="first_name" v-model="form.first_name" type="text"
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 :class="{ 'border-red-500': errors.first_name }">
                             <p v-if="errors.first_name" class="mt-1 text-sm text-red-600">{{ errors.first_name[0] }}</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
-                            <input v-model="form.last_name" type="text"
+                            <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Apellido</label>
+                            <input id="last_name" v-model="form.last_name" type="text"
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 :class="{ 'border-red-500': errors.last_name }">
                             <p v-if="errors.last_name" class="mt-1 text-sm text-red-600">{{ errors.last_name[0] }}</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Cédula</label>
-                            <input v-model="form.document_number" type="text"
+                            <label for="document_number"
+                                class="block text-sm font-medium text-gray-700 mb-1">Cédula</label>
+                            <input id="document_number" v-model="form.document_number" type="text"
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 :class="{ 'border-red-500': errors.document_number }">
                             <p v-if="errors.document_number" class="mt-1 text-sm text-red-600">{{
@@ -207,16 +208,17 @@ function maskEmail(email) {
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
-                            <input v-model="form.phone" type="text"
+                            <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                            <input id="phone" v-model="form.phone" type="text"
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 :class="{ 'border-red-500': errors.phone }">
                             <p v-if="errors.phone" class="mt-1 text-sm text-red-600">{{ errors.phone[0] }}</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Departamento</label>
-                            <select v-model="form.department_id" @change="loadCities"
+                            <label for="department_id"
+                                class="block text-sm font-medium text-gray-700 mb-1">Departamento</label>
+                            <select id="department_id" v-model="form.department_id" @change="loadCities"
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 :class="{ 'border-red-500': errors.department_id }">
                                 <option value="">Seleccione un departamento</option>
@@ -224,12 +226,12 @@ function maskEmail(email) {
                                 </option>
                             </select>
                             <p v-if="errors.department_id" class="mt-1 text-sm text-red-600">{{ errors.department_id[0]
-                                }}</p>
+                            }}</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
-                            <select v-model="form.city_id"
+                            <label for="city_id" class="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
+                            <select id="city_id" v-model="form.city_id"
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 :class="{ 'border-red-500': errors.city_id }" :disabled="!form.department_id">
                                 <option value="">Seleccione una ciudad</option>
@@ -239,8 +241,8 @@ function maskEmail(email) {
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input v-model="form.email" type="email"
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input id="email" v-model="form.email" type="email"
                                 class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                                 :class="{ 'border-red-500': errors.email }">
                             <p v-if="errors.email" class="mt-1 text-sm text-red-600">{{ errors.email[0] }}</p>
