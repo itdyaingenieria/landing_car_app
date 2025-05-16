@@ -151,7 +151,7 @@
                                                     </div>
                                                     <div v-if="winner && winner.id === participant.id"
                                                         class="text-xs text-green-600 font-medium">
-                                                        ★ Ganador
+                                                        🎉 Ganador
                                                     </div>
                                                 </div>
                                             </div>
