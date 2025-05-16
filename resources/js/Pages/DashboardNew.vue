@@ -172,11 +172,11 @@ function formatDate(dateString) {
                                     </div>
                                 </div>
 
-                                <!-- <a :href="route('participants.export')"
+                                <a :href="route('participants.export')"
                                     class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center"
                                     target="_blank">
-                                    <span>Exportar Excel</span>
-                                </a> -->
+                                    <span>Exportar a Excel</span>
+                                </a>
                             </div>
                         </div>
 

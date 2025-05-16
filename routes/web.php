@@ -35,7 +35,6 @@ Route::get('/winner', [ParticipantController::class, 'getWinner']);
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/participants', [ParticipantController::class, 'index']);
     Route::post('/draw-winner', [ParticipantController::class, 'drawWinner']);
-    Route::get('/export-participants', [ParticipantController::class, 'export']);
 });
 
 require __DIR__ . '/auth.php';
