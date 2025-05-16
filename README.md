@@ -38,7 +38,7 @@ Este proyecto es una aplicación web desarrollada con Laravel 12 y Vue.js que im
 1. **Clonar el repositorio**:
 
     ```bash
-    git clone https://github.com/tu-usuario/landing-car-app.git
+    git clone https://github.com/itdyaingenieria/landing_car_app.git
     cd landing-car-app
     ```
 
