@@ -4,15 +4,21 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\Api\LocationController;
+use App\Http\Controllers\Api\ParticipantController;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+    return Inertia::render('Landing');
+})->name('landing');
+
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -24,4 +30,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+// Public API routes
+Route::get('/departments', [LocationController::class, 'departments']);
+Route::get('/cities', [LocationController::class, 'cities']);
+Route::post('/participants', [ParticipantController::class, 'store']);
+Route::get('/winner', [ParticipantController::class, 'getWinner']);
+
+// Protected API routes
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/participants', [ParticipantController::class, 'index']);
+    Route::post('/draw-winner', [ParticipantController::class, 'drawWinner']);
+    Route::get('/export-participants', [ParticipantController::class, 'export']);
+});
+
+require __DIR__ . '/auth.php';
