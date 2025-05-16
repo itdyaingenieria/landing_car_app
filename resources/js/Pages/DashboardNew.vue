@@ -55,6 +55,10 @@ async function drawWinner() {
         return;
     }
 
+    if (!confirm('¿Está seguro de que desea seleccionar un ganador? Esta acción no se puede deshacer.')) {
+        return;
+    }
+
     isDrawingWinner.value = true;
 
     try {
