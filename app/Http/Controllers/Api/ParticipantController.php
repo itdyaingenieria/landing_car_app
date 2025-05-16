@@ -21,15 +21,37 @@ class ParticipantController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|alpha',
-            'last_name' => 'required|alpha',
-            'document_number' => 'required|numeric|unique:participants',
-            'department_id' => 'required|exists:departments,id',
-            'city_id' => 'required|exists:cities,id',
-            'phone' => 'required|numeric',
-            'email' => 'required|email|unique:participants',
-            'habeas_data' => 'required|boolean|accepted',
+            'first_name'        => 'required|regex:/^[\p{L} ]+$/u',
+            'last_name'         => 'required|regex:/^[\p{L} ]+$/u',
+            'document_number'   => 'required|numeric|unique:participants',
+            'department_id'     => 'required|exists:departments,id',
+            'city_id'           => 'required|exists:cities,id',
+            'phone'             => 'required|numeric',
+            'email'             => 'required|email|unique:participants',
+            'habeas_data'       => 'required|boolean|accepted',
+        ], [
+            'first_name.required'      => 'El nombre es obligatorio.',
+            'first_name.regex'         => 'El nombre solo puede contener letras y espacios.',
+            'last_name.required'       => 'El apellido es obligatorio.',
+            'last_name.regex'          => 'El apellido solo puede contener letras y espacios.',
+            'document_number.required' => 'El número de documento es obligatorio.',
+            'document_number.numeric'  => 'El número de documento debe ser numérico.',
+            'document_number.unique'   => 'El número de documento ya está registrado.',
+            'department_id.required'   => 'El departamento es obligatorio.',
+            'department_id.exists'     => 'El departamento seleccionado no es válido.',
+            'city_id.required'         => 'La ciudad es obligatoria.',
+            'city_id.exists'           => 'La ciudad seleccionada no es válida.',
+            'phone.required'           => 'El teléfono es obligatorio.',
+            'phone.numeric'            => 'El teléfono debe ser numérico.',
+            'email.required'           => 'El correo electrónico es obligatorio.',
+            'email.email'              => 'El correo electrónico no es válido.',
+            'email.unique'             => 'El correo electrónico ya está registrado.',
+            'habeas_data.required'     => 'La aceptación del habeas data es obligatoria.',
+            'habeas_data.boolean'      => 'La aceptación del habeas data debe ser verdadero o falso.',
+            'habeas_data.accepted'     => 'Debes aceptar el habeas data para continuar.'
         ]);
+
+
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
