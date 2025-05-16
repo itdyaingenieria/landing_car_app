@@ -1,90 +1,3 @@
-<script setup>
-import { ref, computed } from 'vue';
-import { Head, Link, router } from '@inertiajs/vue3';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import axios from 'axios';
-
-// Props received from the controller with type checking and default values
-const props = defineProps({
-    participants: {
-        type: Array,
-        default: () => []
-    },
-    winner: {
-        type: Object,
-        default: null
-    },
-    stats: {
-        type: Object,
-        default: () => ({
-            total: 0,
-            today: 0,
-            canDrawWinner: false
-        })
-    }
-});
-
-// State variables
-const isDrawingWinner = ref(false);
-const searchQuery = ref('');
-
-// Filtered participants by search with additional validation
-const filteredParticipants = computed(() => {
-    if (!searchQuery.value || !props.participants) return props.participants || [];
-
-    const query = searchQuery.value.toLowerCase();
-    return props.participants.filter(p => {
-        try {
-            return (
-                (p.first_name && p.first_name.toLowerCase().includes(query)) ||
-                (p.last_name && p.last_name.toLowerCase().includes(query)) ||
-                (p.email && p.email.toLowerCase().includes(query)) ||
-                (p.document_number && p.document_number.includes(query))
-            );
-        } catch (error) {
-            console.error('Error filtrando participante:', error);
-            return false;
-        }
-    });
-});
-
-// Method to select winner
-async function drawWinner() {
-    if (!props.stats?.canDrawWinner) {
-        alert('Se necesitan al menos 5 participantes para seleccionar un ganador.');
-        return;
-    }
-
-    if (!confirm('¿Está seguro de que desea seleccionar un ganador? Esta acción no se puede deshacer.')) {
-        return;
-    }
-
-    isDrawingWinner.value = true;
-
-    try {
-        await axios.post('/draw-winner');
-        // Reload the page to display the new winner
-        router.reload();
-    } catch (error) {
-        console.error('Error al seleccionar ganador:', error);
-        alert('Ocurrió un error al seleccionar el ganador. Por favor, intente nuevamente.');
-    } finally {
-        isDrawingWinner.value = false;
-    }
-}
-
-// Format date function
-function formatDate(dateString) {
-    if (!dateString) return '';
-    try {
-        const date = new Date(dateString);
-        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-    } catch (e) {
-        return dateString;
-    }
-}
-</script>
-
 <template>
 
     <Head title="Panel de Administración" />
@@ -251,3 +164,90 @@ function formatDate(dateString) {
         </div>
     </AuthenticatedLayout>
 </template>
+
+<script setup>
+import { ref, computed } from 'vue';
+import { Head, Link, router } from '@inertiajs/vue3';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import axios from 'axios';
+
+// Props received from the controller with type checking and default values
+const props = defineProps({
+    participants: {
+        type: Array,
+        default: () => []
+    },
+    winner: {
+        type: Object,
+        default: null
+    },
+    stats: {
+        type: Object,
+        default: () => ({
+            total: 0,
+            today: 0,
+            canDrawWinner: false
+        })
+    }
+});
+
+// State variables
+const isDrawingWinner = ref(false);
+const searchQuery = ref('');
+
+// Filtered participants by search with additional validation
+const filteredParticipants = computed(() => {
+    if (!searchQuery.value || !props.participants) return props.participants || [];
+
+    const query = searchQuery.value.toLowerCase();
+    return props.participants.filter(p => {
+        try {
+            return (
+                (p.first_name && p.first_name.toLowerCase().includes(query)) ||
+                (p.last_name && p.last_name.toLowerCase().includes(query)) ||
+                (p.email && p.email.toLowerCase().includes(query)) ||
+                (p.document_number && p.document_number.includes(query))
+            );
+        } catch (error) {
+            console.error('Error filtrando participante:', error);
+            return false;
+        }
+    });
+});
+
+// Method to select winner
+async function drawWinner() {
+    if (!props.stats?.canDrawWinner) {
+        alert('Se necesitan al menos 5 participantes para seleccionar un ganador.');
+        return;
+    }
+
+    if (!confirm('¿Está seguro de que desea seleccionar un ganador? Esta acción no se puede deshacer.')) {
+        return;
+    }
+
+    isDrawingWinner.value = true;
+
+    try {
+        await axios.post('/draw-winner');
+        // Reload the page to display the new winner
+        router.reload();
+    } catch (error) {
+        console.error('Error al seleccionar ganador:', error);
+        alert('Ocurrió un error al seleccionar el ganador. Por favor, intente nuevamente.');
+    } finally {
+        isDrawingWinner.value = false;
+    }
+}
+
+// Format date function
+function formatDate(dateString) {
+    if (!dateString) return '';
+    try {
+        const date = new Date(dateString);
+        return date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+    } catch (e) {
+        return dateString;
+    }
+}
+</script>
