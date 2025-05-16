@@ -108,6 +108,14 @@ Este proyecto es una aplicación web desarrollada con Laravel 12 y Vue.js que im
     -   DashboardNew.vue - Panel de administración
 -   migrations - Migraciones de la base de datos
 
+### Modelo Entidad-Relación
+
+El siguiente diagrama muestra la estructura de la base de datos y las relaciones entre las entidades del sistema:
+
+![Diagrama Entidad-Relación](/public/img/docs/er-diagram.png)
+
+_Nota: Este diagrama representa las tablas principales del sistema en color naranja: Users, Participants, Winners, Departments y Cities._
+
 ## Rutas Principales
 
 -   `/` - Landing page pública para registros
